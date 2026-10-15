@@ -1,0 +1,33 @@
+class Solution {
+    public boolean isNumber(String s) {
+         s = s.trim();
+        boolean Digit = false;
+        boolean Dot = false;
+        boolean Exponent = false;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)) {
+                Digit = true;
+            } else if (c == '+' || c == '-') {
+                if (i > 0 && s.charAt(i - 1) != 'e' && s.charAt(i - 1) != 'E') {
+                    return false;
+                }
+            } else if (c == 'e' || c == 'E') {
+                if (Exponent || !Digit) {
+                    return false;
+                }
+                Exponent = true;
+                Digit = false;             
+            } else if (c == '.') {
+                if (Dot || Exponent) {
+                    return false;
+                }
+                Dot = true;
+            } else {
+                return false;
+            }
+        }
+        return Digit;
+        
+    }
+}
